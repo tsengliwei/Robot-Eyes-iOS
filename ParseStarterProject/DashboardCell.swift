@@ -12,6 +12,8 @@ class DashboardCell: UITableViewCell {
 
     @IBOutlet var postedImage: UIImageView!
     
+    @IBOutlet var drawViewImage: UIImageView!
+    
     @IBOutlet var username: UILabel!
     
     @IBOutlet var message: UILabel!

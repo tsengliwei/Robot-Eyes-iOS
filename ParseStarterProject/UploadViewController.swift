@@ -55,6 +55,9 @@ class UploadViewController: UIViewController, UINavigationControllerDelegate, UI
     /////////////// IB ////////////////////
     @IBOutlet var imageToPost: UIImageView!
     
+    @IBOutlet var drawView: DrawView!
+    @IBOutlet var colorBtn: UIBarButtonItem!
+    
     @IBAction func chooseFromPhotos(sender: AnyObject) {
         fetchPhotos("PhotoLibrary")
     }
@@ -63,6 +66,28 @@ class UploadViewController: UIViewController, UINavigationControllerDelegate, UI
         fetchPhotos("Camera")
     }
     
+    @IBAction func clearImage(sender: AnyObject) {
+        var theDrawView: DrawView = drawView as DrawView
+        if theDrawView.lines.count != 0 {
+            theDrawView.lines = []
+            theDrawView.setNeedsDisplay()
+        } else {
+            imageToPost.image = UIImage(named: "placeholder.jpg")
+        }
+    }
+    
+    @IBAction func changeColor(sender: AnyObject) {
+        var theDrawView: DrawView = drawView as DrawView
+        var color: UIColor!
+        if colorBtn.title == "Black" {
+            color = UIColor.blackColor()
+            colorBtn.title = "White"
+        } else if colorBtn.title == "White"{
+            colorBtn.title = "Black"
+            color = UIColor.whiteColor()
+        }
+        theDrawView.drawColor = color
+    }
     
     @IBOutlet var message: UITextField!
     
@@ -90,12 +115,22 @@ class UploadViewController: UIViewController, UINavigationControllerDelegate, UI
             post["userId"] = PFUser.currentUser()!.objectId!
             post["username"] = PFUser.currentUser()?.username
             
+            
             let imageData = UIImagePNGRepresentation(imageToPost.image)
             
             let imageFile = PFFile(name: "image.png", data: imageData)
             
             post["imageFile"] = imageFile
-
+            
+            let drawViewImage = imageWithVIew(drawView)
+            
+            let drawViewData = UIImagePNGRepresentation(drawViewImage)
+            
+            let drawViewFile = PFFile(name: "drawView.png", data: drawViewData)
+            
+            post["drawViewFile"] = drawViewFile
+            
+            
             post.saveInBackgroundWithBlock { (success, error) -> Void in
                 self.activityIndicator.stopAnimating()
                 
@@ -131,7 +166,7 @@ class UploadViewController: UIViewController, UINavigationControllerDelegate, UI
             image.sourceType = UIImagePickerControllerSourceType.Camera
         }
         
-        image.allowsEditing = true;
+        image.allowsEditing = false;
         
         self.presentViewController(image, animated: true, completion: nil)
     }
@@ -150,7 +185,31 @@ class UploadViewController: UIViewController, UINavigationControllerDelegate, UI
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
         self.dismissViewControllerAnimated(true, completion: nil)
-        imageToPost.image = image
+        imageToPost.image = imageResize(image, sizeChange: imageToPost.image!.size)
+    }
+    
+    func imageWithVIew(view: UIView) -> UIImage
+    {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0.0)
+        view.layer.renderInContext(UIGraphicsGetCurrentContext())
+        
+        var img = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return img
+    }
+
+    func imageResize (imageObj:UIImage, sizeChange:CGSize)-> UIImage{
+        
+        let hasAlpha = false
+        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+        
+        UIGraphicsBeginImageContextWithOptions(sizeChange, !hasAlpha, scale)
+        imageObj.drawInRect(CGRect(origin: CGPointZero, size: sizeChange))
+        
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        return scaledImage
     }
     
     ////////////// Helpers ///////////////

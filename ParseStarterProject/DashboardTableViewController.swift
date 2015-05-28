@@ -14,6 +14,7 @@ class DashboardTableViewController: UITableViewController {
     var messages = [String]()
     var usernames = [String]()
     var imageFiles = [PFFile]()
+    var drawViewFiles = [PFFile]()
     
     var refresher: UIRefreshControl!
     
@@ -32,12 +33,18 @@ class DashboardTableViewController: UITableViewController {
                         self.usernames.append(object["username"] as! String)
                         self.imageFiles.append(object["imageFile"]! as! PFFile)
                         
+                        self.drawViewFiles.append(object["drawViewFile"] as! PFFile)
+                      
+                        
+                        
+                        
                         self.tableView.reloadData()
                         self.refresher.endRefreshing()
                     }
                     self.messages = self.messages.reverse()
                     self.usernames = self.usernames.reverse()
                     self.imageFiles = self.imageFiles.reverse()
+                    self.drawViewFiles = self.drawViewFiles.reverse()
                     println(self.messages)
                 }
             } else {
@@ -85,6 +92,12 @@ class DashboardTableViewController: UITableViewController {
         imageFiles[indexPath.row].getDataInBackgroundWithBlock { (data, error) -> Void in
             if let downloadedImage = UIImage(data: data!) {
                 cell.postedImage.image = downloadedImage
+            }
+        }
+        
+        drawViewFiles[indexPath.row].getDataInBackgroundWithBlock { (data, error) -> Void in
+            if let downloadedImage = UIImage(data: data!) {
+                cell.drawViewImage.image = downloadedImage
             }
         }
         
