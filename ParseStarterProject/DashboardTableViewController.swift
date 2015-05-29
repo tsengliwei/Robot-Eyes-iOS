@@ -18,12 +18,14 @@ class DashboardTableViewController: UITableViewController {
     
     var refresher: UIRefreshControl!
     
+    // fetch data from Parse.com and update the screen
     func refresh() {
         var query = PFQuery(className: "Post")
         
         query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
             if error == nil {
                 if let objects = objects {
+                    // remove old data in local array, so there will no duplicate data when refresh
                     self.imageFiles.removeAll(keepCapacity: true)
                     self.messages.removeAll(keepCapacity: true)
                     self.usernames.removeAll(keepCapacity: true)
@@ -32,20 +34,16 @@ class DashboardTableViewController: UITableViewController {
                         self.messages.append(object["message"] as! String)
                         self.usernames.append(object["username"] as! String)
                         self.imageFiles.append(object["imageFile"]! as! PFFile)
-                        
                         self.drawViewFiles.append(object["drawViewFile"] as! PFFile)
                       
-                        
-                        
-                        
                         self.tableView.reloadData()
                         self.refresher.endRefreshing()
                     }
+                    // we retrieve data in reverse order, so we need to reverse them
                     self.messages = self.messages.reverse()
                     self.usernames = self.usernames.reverse()
                     self.imageFiles = self.imageFiles.reverse()
                     self.drawViewFiles = self.drawViewFiles.reverse()
-                    println(self.messages)
                 }
             } else {
                 println("Error fetching data")
@@ -57,6 +55,7 @@ class DashboardTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Pull to refresh
         refresher = UIRefreshControl()
         refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
@@ -88,6 +87,8 @@ class DashboardTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! DashboardCell
+        
+        // get data from local array and update IBOutlets
         
         imageFiles[indexPath.row].getDataInBackgroundWithBlock { (data, error) -> Void in
             if let downloadedImage = UIImage(data: data!) {

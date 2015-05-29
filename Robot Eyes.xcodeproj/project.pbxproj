@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BA814A1A49DA1800E65899 /* AppDelegate.swift */; };
-		81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BA814C1A49DA1800E65899 /* ViewController.swift */; };
 		81BA81501A49DA1800E65899 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81BA814E1A49DA1800E65899 /* Main.storyboard */; };
 		81BA81521A49DA1800E65899 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81BA81511A49DA1800E65899 /* Images.xcassets */; };
 		81BA81701A49DB6800E65899 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BA816B1A49DB6800E65899 /* Bolts.framework */; };
@@ -36,7 +35,6 @@
 		81BA81451A49DA1800E65899 /* Robot Eyes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Robot Eyes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81BA81491A49DA1800E65899 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81BA814A1A49DA1800E65899 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		81BA814C1A49DA1800E65899 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		81BA814F1A49DA1800E65899 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		81BA81511A49DA1800E65899 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		81BA816B1A49DB6800E65899 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -102,16 +100,12 @@
 		81BA81471A49DA1800E65899 /* ParseStarterProject */ = {
 			isa = PBXGroup;
 			children = (
-				C4C2C13F1B156F51008F1985 /* DrawView.swift */,
-				C4C2C1401B156F51008F1985 /* Line.swift */,
-				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
-				81BA814C1A49DA1800E65899 /* ViewController.swift */,
+				C46FA9661B17D041009C4921 /* DrawView */,
 				81BA814E1A49DA1800E65899 /* Main.storyboard */,
-				C45B34721B0DADDC00AFFABD /* AccountViewController.swift */,
-				C45B34701B0D7C6B00AFFABD /* DashboardTableViewController.swift */,
-				C45B346E1B0D7B6400AFFABD /* DashboardCell.swift */,
+				C46FA9671B17D0A3009C4921 /* DashBoard */,
 				C45B346C1B0D3ED700AFFABD /* UploadViewController.swift */,
 				C45B345E1B0C465A00AFFABD /* LoginViewController.swift */,
+				C45B34721B0DADDC00AFFABD /* AccountViewController.swift */,
 				81BA81481A49DA1800E65899 /* Supporting Files */,
 			);
 			path = ParseStarterProject;
@@ -120,6 +114,7 @@
 		81BA81481A49DA1800E65899 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				81BA81511A49DA1800E65899 /* Images.xcassets */,
 				C45B346A1B0D38AB00AFFABD /* placeholder.jpg */,
 				81BA81491A49DA1800E65899 /* Info.plist */,
@@ -152,6 +147,24 @@
 				81BA81761A49E0D500E65899 /* libsqlite3.dylib */,
 			);
 			name = "System Frameworks";
+			sourceTree = "<group>";
+		};
+		C46FA9661B17D041009C4921 /* DrawView */ = {
+			isa = PBXGroup;
+			children = (
+				C4C2C13F1B156F51008F1985 /* DrawView.swift */,
+				C4C2C1401B156F51008F1985 /* Line.swift */,
+			);
+			name = DrawView;
+			sourceTree = "<group>";
+		};
+		C46FA9671B17D0A3009C4921 /* DashBoard */ = {
+			isa = PBXGroup;
+			children = (
+				C45B34701B0D7C6B00AFFABD /* DashboardTableViewController.swift */,
+				C45B346E1B0D7B6400AFFABD /* DashboardCell.swift */,
+			);
+			name = DashBoard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,7 +262,6 @@
 				C4C2C1411B156F51008F1985 /* DrawView.swift in Sources */,
 				C45B34731B0DADDC00AFFABD /* AccountViewController.swift in Sources */,
 				C45B346D1B0D3ED700AFFABD /* UploadViewController.swift in Sources */,
-				81BA814D1A49DA1800E65899 /* ViewController.swift in Sources */,
 				C4C2C1421B156F51008F1985 /* Line.swift in Sources */,
 				C45B346F1B0D7B6400AFFABD /* DashboardCell.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
